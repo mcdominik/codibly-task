@@ -7,6 +7,8 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://reqres.in";
 
+// https://reqres.in/api/products/?pages=1&id=1
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider
