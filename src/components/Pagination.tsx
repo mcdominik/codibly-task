@@ -30,7 +30,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
     <Box textAlign="center" mt={4}>
       <Button
         variant="outline"
-        disabled={currentPage === 1}
+        disabled={currentPage == 1}
         onClick={goToPreviousPage}
         mr={2}
       >
@@ -39,7 +39,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
       <span>{`Page ${currentPage} of ${props.totalPages}`}</span>
       <Button
         variant="outline"
-        disabled={currentPage === props.totalPages}
+        disabled={currentPage == props.totalPages}
         onClick={goToNextPage}
         ml={2}
       >

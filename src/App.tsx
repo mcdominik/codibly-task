@@ -8,16 +8,20 @@ import Pagination from "./components/Pagination";
 import Navbar from "./components/Navbar";
 import { ProductByIdResponse } from "./models/ProductByIdResponse";
 import { ProductsByPageResponse } from "./models/ProductsByPageResponse";
+import { useSearchParams } from "react-router-dom";
 
 export function App() {
-  const [input, setInput] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get("page");
+  const [input, setInput] = useState(searchParams.get("id") || "");
   const [data, setData] = useState<Product[] | null>();
   const [loading, setLoading] = useState(false);
-  const toast = useToast();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(pageParam ? parseInt(pageParam) : 1);
   const [totalPages, setTotalPages] = useState<number | null>();
 
+  const toast = useToast();
   async function getProductById(id: string) {
+    setSearchParams(`?${new URLSearchParams({ id: input })}`);
     console.log(input);
     setLoading(true);
 
@@ -38,6 +42,8 @@ export function App() {
   }
 
   async function getProductsByPage(page: number) {
+    setSearchParams(`?${new URLSearchParams({ page: page.toString() })}`);
+
     setLoading(true);
     const response = (await axios
       .get(`/api/products?page=${page}`)
@@ -80,6 +86,7 @@ export function App() {
   useEffect(() => {
     if (input === "") {
       getProductsByPage(page);
+
       return;
     }
 
@@ -95,16 +102,6 @@ export function App() {
             <Flex>
               <Input onChange={handleInput} placeholder="Search by id..." />
             </Flex>
-            <Button
-              mx={4}
-              colorScheme="blue"
-              variant="outline"
-              onClick={() => {
-                getProductById(input);
-              }}
-            >
-              {loading ? <Spinner /> : "check"}
-            </Button>
           </HStack>
           {data && totalPages && (
             <>
