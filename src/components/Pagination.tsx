@@ -8,7 +8,6 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = (props) => {
-  //   const [currentPage, setCurrentPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(props.currentPage);
 
   useEffect(() => {
