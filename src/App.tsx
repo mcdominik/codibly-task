@@ -3,9 +3,11 @@ import { Flex, Input, Button, VStack, HStack, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import Products from "./components/Products";
-import { ColorValueHex, PantoneFormat, Product } from "./models/product";
+import { Product } from "./models/product";
 import Pagination from "./components/Pagination";
 import Navbar from "./components/Navbar";
+import { ProductByIdResponse } from "./models/ProductByIdResponse";
+import { ProductsByPageResponse } from "./models/ProductsByPageResponse";
 
 export function App() {
   const [input, setInput] = useState("");
@@ -18,27 +20,26 @@ export function App() {
   async function getProductById(id: string) {
     console.log(input);
     setLoading(true);
-    const response = await axios.get(`/api/products?id=${id}`).catch((e) => {
+
+    const response = (await axios.get(`/api/products?id=${id}`).catch((e) => {
       toast.closeAll();
       toast({
         title: e.message,
         status: "error",
       });
-    });
+    })) as ProductByIdResponse;
     setLoading(false);
 
     if (!response?.data.data) {
       setData(null);
       return;
     }
-
-    const array: Product[] = [response?.data.data];
-    setData(array);
+    setData([response.data.data]);
   }
 
   async function getProductsByPage(page: number) {
     setLoading(true);
-    const response = await axios
+    const response = (await axios
       .get(`/api/products?page=${page}`)
       .catch((e) => {
         toast.closeAll();
@@ -46,17 +47,15 @@ export function App() {
           title: e.message,
           status: "error",
         });
-      });
-    let products = response?.data.data;
+      })) as ProductsByPageResponse;
     setLoading(false);
 
-    if (!products) {
+    if (!response?.data.data) {
       setData(null);
       return;
     }
-    setData(products);
-    setTotalPages(response?.data.totalPages);
-    console.log(products);
+    setData(response.data.data);
+    setTotalPages(response.data.total_pages);
   }
 
   function handleInput(event: any) {
@@ -107,14 +106,16 @@ export function App() {
               {loading ? <Spinner /> : "check"}
             </Button>
           </HStack>
-          {data && (
+          {data && totalPages && (
             <>
               <Products products={data} />
-              <Pagination
-                totalPages={2}
-                onPageChange={setPage}
-                currentPage={page}
-              />
+              {totalPages && (
+                <Pagination
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                  currentPage={page}
+                />
+              )}
             </>
           )}
         </VStack>
