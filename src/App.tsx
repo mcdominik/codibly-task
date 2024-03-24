@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Flex, Input, Button, VStack, HStack, Spinner } from "@chakra-ui/react";
+import { Flex, Input, VStack, HStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import Products from "./components/Products";
@@ -15,7 +15,7 @@ export function App() {
   const pageParam = searchParams.get("page");
   const [input, setInput] = useState(searchParams.get("id") || "");
   const [data, setData] = useState<Product[] | null>();
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const [page, setPage] = useState(pageParam ? parseInt(pageParam) : 1);
   const [totalPages, setTotalPages] = useState<number | null>();
 
