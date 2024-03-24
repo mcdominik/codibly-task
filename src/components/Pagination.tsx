@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Box } from "@chakra-ui/react";
 
 interface PaginationProps {
@@ -7,26 +7,23 @@ interface PaginationProps {
   currentPage: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  totalPages,
-  onPageChange,
-  currentPage,
-}) => {
+const Pagination: React.FC<PaginationProps> = (props) => {
   //   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(props.currentPage);
 
-  const goToPage = (page: number) => {
-    onPageChange(page);
-  };
+  useEffect(() => {
+    props.onPageChange(currentPage);
+  }, [currentPage]);
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
-      goToPage(currentPage - 1);
+      setCurrentPage(currentPage - 1);
     }
   };
 
   const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      goToPage(currentPage + 1);
+    if (currentPage < props.totalPages) {
+      setCurrentPage(currentPage + 1);
     }
   };
 
@@ -40,10 +37,10 @@ const Pagination: React.FC<PaginationProps> = ({
       >
         Previous
       </Button>
-      <span>{`Page ${currentPage} of ${totalPages}`}</span>
+      <span>{`Page ${currentPage} of ${props.totalPages}`}</span>
       <Button
         variant="outline"
-        disabled={currentPage === totalPages}
+        disabled={currentPage === props.totalPages}
         onClick={goToNextPage}
         ml={2}
       >
