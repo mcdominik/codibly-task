@@ -15,15 +15,12 @@ export function App() {
   const pageParam = searchParams.get("page");
   const [input, setInput] = useState(searchParams.get("id") || "");
   const [data, setData] = useState<Product[] | null>();
-  const [, setLoading] = useState(false);
   const [page, setPage] = useState(pageParam ? parseInt(pageParam) : 1);
   const [totalPages, setTotalPages] = useState<number | null>();
 
   const toast = useToast();
   async function getProductById(id: string) {
     setSearchParams(`?${new URLSearchParams({ id: input })}`);
-    console.log(input);
-    setLoading(true);
 
     const response = (await axios.get(`/api/products?id=${id}`).catch((e) => {
       toast.closeAll();
@@ -32,7 +29,6 @@ export function App() {
         status: "error",
       });
     })) as ProductByIdResponse;
-    setLoading(false);
 
     if (!response?.data.data) {
       setData(null);
@@ -44,7 +40,6 @@ export function App() {
   async function getProductsByPage(page: number) {
     setSearchParams(`?${new URLSearchParams({ page: page.toString() })}`);
 
-    setLoading(true);
     const response = (await axios
       .get(`/api/products?page=${page}`)
       .catch((e) => {
@@ -54,7 +49,6 @@ export function App() {
           status: "error",
         });
       })) as ProductsByPageResponse;
-    setLoading(false);
 
     if (!response?.data.data) {
       setData(null);
@@ -69,13 +63,15 @@ export function App() {
     const onlyIntegers = event.target.value.replace(/[^0-9\-]/g, "");
 
     if (phrase.length > 0 && !phrase.match(/^\d+$/)) {
+      toast.closeAll();
+
       toast({
         title: "only id (integers) are allowed ",
         status: "error",
       });
+
       return;
     }
-    toast.closeAll();
     setInput(onlyIntegers);
   }
 
@@ -86,7 +82,6 @@ export function App() {
   useEffect(() => {
     if (input === "") {
       getProductsByPage(page);
-
       return;
     }
 
