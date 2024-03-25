@@ -19,11 +19,7 @@ function Products({ products }: Props) {
         gap={4}
       >
         {products.map((product) => (
-          <ProductTile
-            key={product.id}
-            name={product.name}
-            color={product.color}
-          />
+          <ProductTile key={product.id} product={product} />
         ))}
       </Grid>
     </Box>
