@@ -34,9 +34,9 @@ const Pagination: React.FC<PaginationProps> = (props) => {
         onClick={goToPreviousPage}
         mr={2}
       >
-        Previous
+        Prev
       </Button>
-      <span>{`Page ${currentPage} of ${props.totalPages}`}</span>
+      <span>{`${currentPage} of ${props.totalPages}`}</span>
       <Button
         variant="outline"
         disabled={currentPage == props.totalPages}
