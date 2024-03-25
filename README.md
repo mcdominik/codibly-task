@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+# Created for recruting purpouses.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+Project uses React Vite (TypeScript) with ChakraUI. I tried to deploy it simply on github pages, but I struggle to make it run with node 20+, so I contenerized the app and ☁️ **deployed** on my VPS -> https://codiblytask.toadres.pl. Image uses multistage building (with nginx) so it's very lightweight.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## How to run 🚀
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+As pointed in instruction:
+```bash
+npm i && npm run start
 ```
+## Accomplished
+- ✔️ products fetching
+- ✔️ products filtering by id
+- ✔️ pagination
+- ✔️ basic toast based error handling
+- ✔️ reflect pagination and filtering in the address UR
+- ✔️ deploy app on the cloud
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Possible improvements:
+- add tests (most important)
+- improve error handling
+- clean App structure (split the code to new components)
+
