@@ -22,6 +22,7 @@ npm i && npm run start
 
 ## Possible improvements:
 - add tests (most important)
+- design 😅
 - improve error handling
 - clean App structure (split the code to new components)
 
