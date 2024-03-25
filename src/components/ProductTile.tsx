@@ -1,5 +1,5 @@
-import { Box, HStack, Spacer, Text } from "@chakra-ui/react";
-import { ColorValueHex, Product } from "../models/product";
+import { Box, Text } from "@chakra-ui/react";
+import { Product } from "../models/product";
 import ProductModal from "./Modal";
 import { useState } from "react";
 
