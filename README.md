@@ -14,6 +14,8 @@ npm i && npm run start
 ## Accomplished
 - ✔️ products fetching
 - ✔️ products filtering by id
+- ✔️ products filtering by id
+- ✔️ modals
 - ✔️ pagination
 - ✔️ basic toast based error handling
 - ✔️ reflect pagination and filtering in the address UR
